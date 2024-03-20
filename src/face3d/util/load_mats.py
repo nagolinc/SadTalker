@@ -104,6 +104,8 @@ def transferBFM09(bfm_folder='BFM'):
 # load landmarks for standard face, which is used for image preprocessing
 def load_lm3d(bfm_folder):
 
+    print("about to die",bfm_folder)
+
     Lm3D = loadmat(osp.join(bfm_folder, 'similarity_Lm3D_all.mat'))
     Lm3D = Lm3D['lm']
 

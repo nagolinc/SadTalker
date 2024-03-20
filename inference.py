@@ -12,7 +12,7 @@ from src.generate_batch import get_data
 from src.generate_facerender_batch import get_facerender_data
 from src.utils.init_path import init_path
 
-def main(args):
+def main(args,current_root_path):
     #torch.backends.cudnn.enabled = False
 
     pic_path = args.source_image
@@ -28,9 +28,12 @@ def main(args):
     ref_eyeblink = args.ref_eyeblink
     ref_pose = args.ref_pose
 
-    current_root_path = os.path.split(sys.argv[0])[0]
+    #current_root_path = os.path.split(sys.argv[0])[0]
 
     sadtalker_paths = init_path(args.checkpoint_dir, os.path.join(current_root_path, 'src/config'), args.size, args.old_version, args.preprocess)
+
+
+    print('about to die',sadtalker_paths)
 
     #init model
     preprocess_model = CropAndExtract(sadtalker_paths, device)
@@ -92,6 +95,9 @@ def main(args):
 
     if not args.verbose:
         shutil.rmtree(save_dir)
+
+
+    return crop_info, save_dir+'.mp4'
 
     
 if __name__ == '__main__':
